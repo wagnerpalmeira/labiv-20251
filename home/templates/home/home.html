@@ -8,11 +8,15 @@
             {% for promotion in promotions %}
             <div class="col-md-4">
                 <div class="card">
-                    <img src="https://cdn.gatry.com/gatry-static/promocao/imagem/49d5cb421b4a56041fb0acbc554499cf.jpg" class="card-img-top" alt="...">
+                    <img src="{{promotion.image_cover.url}}" class="card-img-top" alt="...">
                     <div class="card-body">
-                        <h5 class="card-title">{{promotion.title}}</h5>
+                        <p>
+                            <span class="badge bg-secondary">{{promotion.category}}</span>
+                        </p>
+                        <h5 class="card-title">{{promotion.name}}</h5>
                         <p class="card-text">{{ promotion.description }}</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                        <p>R$ {{promotion.price}}</p>
+                        <a href="{{promotion.url}}" target="_blank" class="btn btn-primary">Ver Mais</a>
                     </div>
                 </div>
             </div>

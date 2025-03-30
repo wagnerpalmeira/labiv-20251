@@ -8,6 +8,7 @@ class Promotion(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     url = models.URLField()
+    image_cover = models.ImageField(upload_to='promotions', null=True, blank=True)
 
     category = models.ForeignKey(Category, on_delete=models.PROTECT)
     tags = models.ManyToManyField(Tag)
