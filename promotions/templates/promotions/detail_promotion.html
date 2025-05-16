@@ -2,13 +2,16 @@
 
 {% block content %}
 <div class="container">
-    <h1>Detalhe Produto</h1>
-    <h2>
-        {{promotion.title}}
-    </h2>
-    <p>
-        {{promotion.description}}
-    </p>
+    <div class="row py-4">
+        <div class="col-6">
+            <img src="{{ promotion.image_cover.url }}" alt="{{ promotion.name }}" class="img-fluid">
+        </div>
+        <div class="col-6">
+            <h1>{{ promotion.name }}</h1>
+            <p>R$ {{promotion.price}}</p>
+            <a href="{{promotion.url}}" target="_blank" class="btn btn-success">Acessar</a>
+        </div>
+    </div>
 </div>
 {% endblock %}
 

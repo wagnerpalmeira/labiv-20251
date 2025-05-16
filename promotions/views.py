@@ -1,23 +1,36 @@
 from django.shortcuts import render
+from .models import Promotion
+from django.shortcuts import get_object_or_404
+from django.shortcuts import redirect
+from django.contrib.auth.decorators import login_required
+from .forms import PromotionForm
+from django.views.generic import DetailView
+
+class PromotionDetailView(DetailView):
+    model = Promotion
+    template_name = 'promotions/detail_promotion.html'
+    context_object_name = 'promotion'
+    pk_url_kwarg = 'promotion_id'
 
 
-promotions = [
-    {
-        'id': 1,
-        'title': 'Promotion 1',
-        'description': 'This is the first promotion',
-    },
-    {
-        'id': 2,
-        'title': 'Promotion 2',
-        'description': 'This is the second promotion',
-    }
-]
+# def detail_promotion(request, promotion_id):
+#     promotion = get_object_or_404(Promotion, id=promotion_id)
 
-def detail_promotion(request, promotion_id):
-    context = {
-        'promotion': promotions[int(promotion_id) - 1]
-    }
+#     return render(request, 'promotions/detail_promotion.html',
+#                    {'promotion': promotion})
 
-    return render(request, 'promotions/detail_promotion.html',
-                   context)
+@login_required
+def create_promotion(request):
+    if request.method == 'POST':
+        form = PromotionForm(request.POST, request.FILES)
+        if form.is_valid():
+            promotion = form.save(commit=False)
+            # promotion.user = request.user
+            promotion.save()
+            return redirect('home')
+        
+    else:
+        form = PromotionForm()
+
+    return render(request, 'promotions/create_promotion.html', 
+                  {'form': form})
